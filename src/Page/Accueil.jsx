@@ -1,10 +1,14 @@
 import Header from "../composant/header/header"
 import Banner from "../composant/Banner/Banner"
 import BannerImg from "../assets/Front-img/bank-tree.jpeg"
-import Features from "../composant/features/features"
+import Features from "../composant/feature/features"
 import chatIcon from "../assets/Front-img/icon-chat.png"
 import moneyIcon from "../assets/Front-img/icon-money.png"
 import securityIcon from "../assets/Front-img/icon-security.png"
+import { useDispatch } from "react-redux"
+import { loginUser } from "../features/user/userslice"
+
+
 
 
 function Accueil() {

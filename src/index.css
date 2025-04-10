@@ -20,6 +20,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
 
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 a {

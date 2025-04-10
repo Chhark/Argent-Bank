@@ -1,4 +1,4 @@
-import "../features/featuresStyle.scss"
+import "./featuresStyle.scss"
 
 function Features({img ,altimg,title,p}) {
     return(

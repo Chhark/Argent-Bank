@@ -1,0 +1,99 @@
+.main {
+    display: flex;
+    flex: 1;
+  }
+.bg-dark {
+    background-color: #12002b;
+    align-items:start;
+  }
+h1{
+    font-size: 24px;
+  }
+
+.sign-in-button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+  }
+
+  .sign-in-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  
+  .sign-in-content {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+  
+//   .sign-in-icon {
+
+//   }
+  
+  .input-remember {
+    display: flex;
+
+  }
+  
+  .input-remember label {
+    margin-left: 0.25rem;
+  }
+  
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  
+  .input-wrapper label {
+    font-weight: bold;
+  }
+  
+  .input-wrapper input {
+    border:solid 1px #2c3e50;
+    background-color: #fff;
+    padding: 5px;
+    font-size: 1.2rem;
+    color: #000;
+  }
+  input[type="checkbox"] {
+    appearance: none;          /* désactive le style natif */
+    -webkit-appearance: none;  /* pour Safari */
+    width: 18px;
+    height: 18px;
+    border: 1px solid #2c3e50;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: #00bc77;       /* ✅ ta couleur de sélection */
+    border-color: #00bc77;
+  }
+  
+  input[type="checkbox"]:checked::after {
+    content: "✔";
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    top: -2px;
+    left: 2px;
+  }
+  
+  

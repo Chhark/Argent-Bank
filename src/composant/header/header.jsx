@@ -6,7 +6,7 @@ function Header() {
   return(
     <div className="header">
         <img src={logo}  alt="Argent-Bank" />
-        <Link className="HeaderLink"><i class="fa-solid fa-circle-user"></i> Sign In</Link>
+        <Link to="/connection" className="HeaderLink"><i class="fa-solid fa-circle-user"></i> Sign In</Link>
     </div>
   )  
 }
