@@ -14,7 +14,6 @@ import { loginUser } from "../features/user/userslice"
 function Accueil() {
     return(
         <>
-        <Header></Header>
         <Banner backgroundImg={BannerImg}></Banner>
         <section class="features">
             <Features img={chatIcon} alt="chat icon" title="You are our #1 priority" p="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."></Features>

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 function Form() {
     const [email , SetMail] = useState("")
     const [password , SetPassword] = useState("")
+    const [remember , SetRemember] = useState("")
 
     const Dispatch = useDispatch()
     const Navigate = useNavigate()
@@ -25,7 +26,7 @@ function Form() {
 
     const userConnection = (e) =>{
         e.preventDefault()
-        Dispatch(loginUser({email , password}));
+        Dispatch(loginUser({email , password , remember}));
     }
     
     return(
@@ -44,7 +45,7 @@ function Form() {
             <input type="password" id="password" onChange={(e) => SetPassword(e.target.value)} />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me"  />
+            <input type="checkbox" id="remember-me"  value={remember} onChange={(e) => SetRemember(e.target.checked)}/>
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {status === "failed" && (

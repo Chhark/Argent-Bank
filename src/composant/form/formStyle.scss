@@ -10,7 +10,7 @@ h1{
     font-size: 24px;
   }
 
-.sign-in-button {
+.sign-in-button, .form-button {
     display: block;
     width: 100%;
     padding: 8px;
@@ -94,6 +94,24 @@ h1{
     color: white;
     top: -2px;
     left: 2px;
+  }
+
+/*Edit form*/
+  .button-wraper{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+  .input-wraper{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    input{
+      background-color: transparent;
+      border: 1px solid #000;
+      color: #000;
+    }
   }
   
   

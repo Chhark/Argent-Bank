@@ -22,7 +22,10 @@ export const loginUser = createAsyncThunk(
         }
         const data = await reponse.json()
         console.log(data.body.token)
-        return data.body.token
+        return {
+            token: data.body.token,
+            remember: User.remember 
+        }
     } catch (error){
         return thunkAPI.rejectWithValue(error.message);
     }
@@ -45,7 +48,35 @@ export const infosUser = createAsyncThunk(
             })
             const data = await reponse.json()
             if(!reponse.ok){
-                return thunkAPI.rejectWithValue(error.message || 'Erreur lors de la récupération du profil');
+                return thunkAPI.rejectWithValue(data.message || 'Erreur lors de la récupération du profil');
+            }
+            console.log(data.body)
+            return data.body
+        } catch (error){
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+)
+export const EditUser = createAsyncThunk(
+    'user/EditUser',
+    async (userName,thunkAPI) => {
+        const state = thunkAPI.getState()
+        const token = state.user.token
+
+        try{
+            const reponse = await fetch("http://localhost:3001/api/v1/user/profile" ,{
+                method: 'PUT',
+                headers:{
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    userName
+                })
+            })
+            const data = await reponse.json()
+            if(!reponse.ok){
+                return thunkAPI.rejectWithValue(data .message || 'Erreur lors de la modification du profil');
             }
             console.log(data.body)
             return data.body
@@ -60,10 +91,12 @@ export const infosUser = createAsyncThunk(
 
 const initialState = {
     isLoggedIn : false,
+    isEdit : false,
     userInfo: null,
     token : null,
     status: 'idle',
-    error: null
+    error: null,
+    isAuthChecked: false
 }
 
 const userSlice = createSlice({
@@ -75,7 +108,16 @@ const userSlice = createSlice({
             state.userInfo = null,
             state.status = 'idle',
             state.error = null
-        }
+            state.isAuthChecked = true;
+        },
+        setToken: (state , action) => {
+            state.token = action.payload
+            state.isLoggedIn = true
+            state.isAuthChecked = true;
+        },
+        Edit: (state) => {
+            state.isEdit = !state.isEdit
+        },
     },
     extraReducers: (builder) =>{
         builder
@@ -86,12 +128,20 @@ const userSlice = createSlice({
             .addCase(loginUser.fulfilled, (state , actions) =>{
                 state.status = 'succeeded';
                 state.isLoggedIn = true
-                state.token = actions.payload
+                state.token = actions.payload.token
+                
+                if (actions.payload.remember){
+                    localStorage.setItem('token',actions.payload.token)
+                }else{
+                    sessionStorage.setItem('token',actions.payload.token)
+                }
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload || 'Erreur inconnue';
             })
+
+            
 
             .addCase(infosUser.pending, (state) =>{
                 state.status = 'loading';
@@ -104,10 +154,25 @@ const userSlice = createSlice({
             .addCase(infosUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload || 'Erreur inconnue';
+            })
+
+
+            .addCase(EditUser.pending, (state) =>{
+                state.status = 'loading';
+                state.error = null;
+            })
+            .addCase(EditUser.fulfilled, (state , actions) =>{
+                state.status = 'succeeded';
+                // state.userInfo = actions.payload
+                state.userInfo.userName = actions.payload.userName
+            })
+            .addCase(EditUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload || 'Erreur inconnue';
             });
     }
 })
 
-export const {login, logout} = userSlice.actions ;
+export const {setToken, logout ,Edit } = userSlice.actions ;
 
 export default userSlice.reducer;
