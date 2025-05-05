@@ -104,15 +104,17 @@ const userSlice = createSlice({
     initialState,
     reducers:{
         logout: (state) => {
-            state.isLoggedIn = false
-            state.userInfo = null,
-            state.status = 'idle',
-            state.error = null
+            state.isLoggedIn = false;
+            state.userInfo = null;
+            state.status = 'idle';
+            state.error = null;
             state.isAuthChecked = true;
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
         },
         setToken: (state , action) => {
-            state.token = action.payload
-            state.isLoggedIn = true
+            state.token = action.payload;
+            state.isLoggedIn = true;
             state.isAuthChecked = true;
         },
         Edit: (state) => {
