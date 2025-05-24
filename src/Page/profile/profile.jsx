@@ -4,6 +4,7 @@ import { Edit, infosUser } from "../../features/user/userslice"
 import { EditUser } from "../../features/user/userslice"
 import { useNavigate } from "react-router-dom"
 import "./profile.scss"
+import Account from "../../composant/BankAccount/Account"
 
 
 function Profile() {
@@ -16,6 +17,8 @@ function Profile() {
     const connected = useSelector((state) => state.user.isLoggedIn)
     const isAuthChecked = useSelector((state) => state.user.isAuthChecked);
     const [UserName , SetUserName] = useState(userName)
+    const error = useSelector((state) => state.user.error);
+
 
     useEffect(() => {
         SetUserName(userInfos?.userName)
@@ -31,7 +34,7 @@ function Profile() {
     
     useEffect(() => {
         if(isAuthChecked && !connected){
-            Navigate("/connection")
+            Navigate("/")
         }
     },[isAuthChecked, connected, Navigate])
 
@@ -42,21 +45,35 @@ function Profile() {
     return (
         <main className="main main-profile">
             {visible
-                &&<div> <h2>Edit user infos</h2>
+                &&<div className="form-wraper"> <h2>Edit user infos</h2>
                 <form onSubmit={ChangeUserName}>
                     <div className="input-wraper">
                     <label htmlFor="userName">User Name</label>
                     <input type="text" id="userName" value={UserName} onChange={(e) => SetUserName(e.target.value)}/>
                     </div>
+                    <div className="input-wraper">
+                    <label htmlFor="firstName">First Name</label>
+                    <input type="text" id="firstName" value={userInfos?.firstName} onChange={(e) => SetUserName(e.target.value)} disabled/>
+                    </div>
+                    <div className="input-wraper">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text" id="lastrName" value={userInfos?.lastName} onChange={(e) => SetUserName(e.target.value)} disabled/>
+                    </div>
+                    {UserName === "" && <p className="error-message">Le champ ne peut pas être vide</p>}
+                    {error && <p className="error-message">{error}</p>}
                     <div className="button-wraper">
-                        <button className="form-button" type="submit">Save</button>
-                        <button className="form-button" onClick={() => Dispatch(Edit())}>Annuller</button>
+                        <button className="form-button" type="submit"  disabled={UserName ===""}>Save</button>
+                        <button className="form-button" onClick={() => Dispatch(Edit())}>Annuler</button>
                     </div>
                 </form>
+                
+
                 </div>
                 
             }
-            <h1>Bienvenue, {userInfos?.firstName} {userInfos?.lastName} 👋</h1>
+            <Account title="Argent Bank Savings (x6712)" amount="$10,928.42" description="Available Balance"></Account>
+            <Account title="Argent Bank Checking (x8349)" amount="$2,082.79" description="Current Balance"></Account>
+            <Account title="Argent Bank Credit Card (x8349)" amount="$184.30" description="Available Balance"></Account>
         </main>
     )
 }

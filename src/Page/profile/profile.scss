@@ -3,3 +3,32 @@
     flex-direction: column;
     align-items: center;
 }
+.error-message {
+  color: red;
+  margin: 10px 0;
+}
+.form-button:disabled{
+    background-color: #027e51;
+}
+.input-wraper{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  input{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+    max-width: 200px;
+  }
+  input:disabled{
+    background-color:#e2e2e2;
+    color: #6c6b6b;
+  }
+}
+
+.form-wraper{
+  margin-bottom: 20px;
+}

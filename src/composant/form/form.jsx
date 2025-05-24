@@ -38,7 +38,7 @@ function Form() {
         <form onSubmit={userConnection}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" onChange={(e) => SetMail(e.target.value)} />
+            <input type="email" id="username" onChange={(e) => SetMail(e.target.value)} />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
